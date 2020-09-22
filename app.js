@@ -8,44 +8,64 @@ class Dino {
     }
 
     // Create Dino Objects
-    loadDino = (next, error) => {
-        let triggerNext = () => {
+    loadDino = (() => {
+        let nextQueue = [];
+        let errorQueue = [];
+        const triggerNext = () => {
             console.log(`load dino.json success.`);
-            if (next && typeof (next) === "function")
-                next();
-        };
-        let triggerError = (status, exc) => {
-            console.log(`load dino.json failed(${status}${exc ? ":" + JSON.stringify(exc) : ""}).`);
-            if (error && typeof (error) === "function")
-                error({
-                    status: status
-                    , exception: exc
-                });
-        };
-        if (this.DinoList) {
-            triggerNext();
-        } else {
-            try {
-                let xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = () => {
-                    console.log(`xhttp.readyState = ${xhttp.readyState} && xhttp.status = ${xhttp.status}`);
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        try {
-                            this.DinoList = JSON.parse(xhttp.responseText);
-                            // console.log(JSON.stringify(this.DinoList));
-                            triggerNext();
-                        } catch (exc) {
-                            triggerError("parse exception", exc);
-                        }
-                    }
-                };
-                xhttp.open("GET", "dino.json", true);
-                xhttp.send();
-            } catch (exc) {
-                triggerError("catch exception", exc);
+            for (const next of nextQueue) {
+                if (next && typeof (next) === "function")
+                    next();
             }
-        }
+            nextQueue = [];
+        };
+        const triggerError = (status, exc) => {
+            console.log(`load dino.json failed(${status}${exc ? ":" + JSON.stringify(exc) : ""}).`);
+            for (const error of errorQueue) {
+                if (error && typeof (error) === "function")
+                    error({
+                        status: status
+                        , exception: exc
+                    });
+            }
+            errorQueue = [];
+        };
+        let loading = false;
+        return (next, error) => {
+            nextQueue.push(next);
+            errorQueue.push(error);
+            if (this.DinoList) {
+                triggerNext();
+            } else {
+                if (!loading) {
+                    loading = true;
+                    try {
+                        let xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = () => {
+                            console.log(`xhttp.readyState = ${xhttp.readyState} && xhttp.status = ${xhttp.status}`);
+                            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                                try {
+                                    this.DinoList = JSON.parse(xhttp.responseText);
+                                    // console.log(JSON.stringify(this.DinoList));
+                                    triggerNext();
+                                } catch (exc) {
+                                    triggerError("parse exception", exc);
+                                }
+                                finally {
+                                    loading = false;
+                                }
+                            }
+                        };
+                        xhttp.open("GET", "dino.json", true);
+                        xhttp.send();
+                    } catch (exc) {
+                        triggerError("catch exception", exc);
+                    }
+                }
+            }
+        };
     }
+    )();
 
     // Create Human Object
 
@@ -73,4 +93,3 @@ class Dino {
 }
 // On button click, prepare and display infographic
 let controller = new Dino();
-// console.log(controller.loadDino());
