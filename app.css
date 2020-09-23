@@ -37,6 +37,7 @@ p {
 
 /* Grid Styles */
 #grid {
+    position: relative;
     background: #fff url(images/tracks.png) no-repeat;
     background-size: cover;
     display: flex;
@@ -45,8 +46,27 @@ p {
     flex-wrap: wrap;
 }
 
+.hide {
+    display: none !important;
+}
+
+.comapre-info{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: white;
+}
+
+.comapre-info #comapre-info-close{
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
 .grid-item {
     position: relative;
+    cursor: pointer;
     box-sizing: border-box;
     width: 100%;
 }
@@ -88,7 +108,7 @@ p {
 }
 
 @media (min-width: 550px) {
-    #grid div {
+    #grid .grid-item {
         width: calc(100% / 3);
     }
 }

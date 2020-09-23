@@ -64,12 +64,32 @@ class Dino {
                 }
             }
         };
-    }
-    )();
+    })();
 
     // Create Human Object
-
     // Use IIFE to get human data from form
+    // =>I don't see why, loadDino() include ajax requst, have more reason to use IIFE to make private property.
+    setupHuman = (() => (
+        ({
+            species = "Human",
+            weight = 155,
+            height = 65,
+            diet = "Omnivor",
+            where = "Everywhere",
+            when = "100,000 BC",
+            fact = "Can make tools."
+        } = {}) => {
+            this.Human = {
+                species,
+                weight,
+                height,
+                diet,
+                where,
+                when,
+                fact
+            };
+        }
+    ))();
 
 
     // Create Dino Compare Method 1
