@@ -25,9 +25,14 @@ class Animal {
     // Draw into grid item.
     fillGridItem = (domElement) => {
         domElement.classList.add(this.species.toLowerCase().replace(" ", "_"));
-        [...domElement.getElementsByClassName("grid-title")].forEach(ele => { ele.innerText = this.species });
-        [...domElement.getElementsByClassName("grid-image")].forEach(ele => { ele.setAttribute("src", this.image) });
+        [...domElement.getElementsByClassName("grid-species")].forEach(ele => { ele.innerText = this.species });
+        [...domElement.getElementsByClassName("grid-weight")].forEach(ele => { ele.innerText = this.weight });
+        [...domElement.getElementsByClassName("grid-height")].forEach(ele => { ele.innerText = this.height });
+        [...domElement.getElementsByClassName("grid-diet")].forEach(ele => { ele.innerText = this.diet });
+        [...domElement.getElementsByClassName("grid-where")].forEach(ele => { ele.innerText = this.where });
+        [...domElement.getElementsByClassName("grid-when")].forEach(ele => { ele.innerText = this.when });
         [...domElement.getElementsByClassName("grid-fact")].forEach(ele => { ele.innerText = this.fact });
+        [...domElement.getElementsByClassName("grid-image")].forEach(ele => { ele.setAttribute("src", this.image) });
     }
 
     // Create Dino Compare Method 1

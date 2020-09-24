@@ -70,6 +70,42 @@ p {
     box-sizing: border-box;
     width: 100%;
 }
+.grid-detail{
+    display: none;
+    text-align: left;
+}
+.grid-item:hover .grid-detail{
+    display: block;
+}
+.grid-item:hover .grid-normal{
+    display: none;
+}
+.grid-detail>span{
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-top: 4px;
+}
+.grid-detail>span>label{
+    width: 70px;
+    text-align: right;
+    display: inline-block;
+    position: absolute;
+    font-weight: bold;;
+}
+.grid-detail>span>span{
+    margin-left:76px;
+    display: inline-block;
+}
+.grid-detail .grid-weight::after{
+    margin-left:6px;
+    content: "lbs";
+}
+.grid-detail .grid-height::after{
+    margin-left:6px;
+    content: "inches";
+}
+
 
 .grid-item:nth-child(1){
     background: #009687f5;
