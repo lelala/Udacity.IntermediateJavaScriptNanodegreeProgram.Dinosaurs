@@ -24,9 +24,9 @@ class Animal {
 
     // Draw into grid item.
     fillGridItem = (domElement) => {
-        domElement.getElementsByTagName("h3")[0].innerText = this.species;
-        domElement.getElementsByTagName("img")[0].setAttribute("src", this.image);
-        domElement.getElementsByTagName("p")[0].innerText = this.fact;
+        [...domElement.getElementsByClassName("grid-title")].forEach(ele => { ele.innerText = this.species });
+        [...domElement.getElementsByClassName("grid-image")].forEach(ele => { ele.setAttribute("src", this.image) });
+        [...domElement.getElementsByClassName("grid-fact")].forEach(ele => { ele.innerText = this.fact });
     }
 
     // Create Dino Compare Method 1
@@ -64,15 +64,15 @@ class dinoMuseum {
                     //put human into list;
                     this.animalList.splice(4, 0, this.compareTarget);
                     // Generate Tiles for each Dino in Array
-                    // Add tiles to DOM
-                    const gridItemList = document.getElementsByClassName("grid-item");
                     this.animalList.forEach((animal, index) => {
-                        if (index >= gridItemList.length) return;
-                        const gridItem = gridItemList[index];
+                        // Add tiles to DOM
+                        // const gridItem = document.getElementById("tmpGridItem").content.cloneNode(true);
+                        const gridItem = document.importNode(document.getElementById("tmpGridItem").content.firstChild, true);
+                        document.getElementById("grid").appendChild(gridItem);
                         animal.fillGridItem(gridItem);
 
                         //trigger compare when gridItem clicked
-                        gridItemList[index].onclick = () => {
+                        gridItem.onclick = () => {
                             animal["compare" + this.compareMethod](this.compareTarget);
                         };
                     });

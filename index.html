@@ -61,61 +61,25 @@
         </div>
     </form>
     <!-- .grid to attach tiles to -->
-    <main id="grid" class="hide">
-        <div class="comapre-info hide">
-            <a id="comapre-info-close">back</a>
-            <p>balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
-        <div class="grid-item">
-            <h3>Brachiosaurus</h3>
-            <img src="images/brachiosaurus.png" />
-            <p>An asteroid was named 9954 Brachiosaurus in 1991.</p>
-        </div>
+    <main id="grid"
+          class="hide">
     </main>
     <footer>
         <!-- Include information source -->
-        <p class="fine-print">Data Sourced from <a href="https://www.wikipedia.org/">Wikipedia.org</a>, all numbers are approximations.</p>
+        <p class="fine-print">Data Sourced from <a href="https://www.wikipedia.org/">Wikipedia.org</a>, all numbers are
+            approximations.</p>
     </footer>
 </body>
+<template id="tmpCompareModal">
+    <div class="comapre-info hide">
+        <a id="comapre-info-close">back</a>
+        <p>balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala</p>
+    </div>
+</template>
+<template id="tmpGridItem"><div class="grid-item">
+        <h3 class="grid-title"></h3>
+        <img class="grid-image" />
+        <p class="grid-fact"></p>
+    </div></template>
 
 </html>
