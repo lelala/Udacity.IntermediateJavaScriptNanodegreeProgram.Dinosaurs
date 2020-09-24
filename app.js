@@ -48,7 +48,7 @@ class Animal {
     }
 }
 
-class dinoMuseum {
+class DinoMuseum {
     constructor() {
         this.animalList = null;
         this.compareTarget = null;
@@ -67,7 +67,7 @@ class dinoMuseum {
                     this.animalList.forEach((animal, index) => {
                         // Add tiles to DOM
                         // const gridItem = document.getElementById("tmpGridItem").content.cloneNode(true);
-                        const gridItem = document.importNode(document.getElementById("tmpGridItem").content.firstChild, true);
+                        const gridItem = document.importNode(document.getElementById("tmpGridItem").content, true).firstElementChild;
                         document.getElementById("grid").appendChild(gridItem);
                         animal.fillGridItem(gridItem);
 
@@ -182,7 +182,7 @@ class dinoMuseum {
     ))();
 };
 //startup
-new dinoMuseum();
+new DinoMuseum();
 
 
 
