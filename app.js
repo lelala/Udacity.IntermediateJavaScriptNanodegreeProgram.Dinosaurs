@@ -32,19 +32,19 @@ class Animal {
     // Create Dino Compare Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches. 
     compareWeight = (target) => {
-
+        alert(`compareWeight ${this.species} vs ${target.species}`);
     }
 
     // Create Dino Compare Method 2
     // NOTE: Weight in JSON file is in lbs, height in inches.
     compareHeight = (target) => {
-
+        alert(`compareHeight ${this.species} vs ${target.species}`);
     }
 
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
     compareDiet = (target) => {
-
+        alert(`compareDiet ${this.species} vs ${target.species}`);
     }
 }
 
@@ -52,6 +52,7 @@ class dinoMuseum {
     constructor() {
         this.animalList = null;
         this.compareTarget = null;
+        this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
         // preload dino.json
         this.loadDino();
         // On button click, prepare and display infographic
@@ -65,9 +66,16 @@ class dinoMuseum {
                     // Generate Tiles for each Dino in Array
                     // Add tiles to DOM
                     const gridItemList = document.getElementsByClassName("grid-item");
-                    for (let index = 0; index < this.animalList.length && index < gridItemList.length; index++) {
-                        this.animalList[index].fillGridItem(gridItemList[index]);
-                    }
+                    this.animalList.forEach((animal, index) => {
+                        if (index >= gridItemList.length) return;
+                        const gridItem = gridItemList[index];
+                        animal.fillGridItem(gridItem);
+
+                        //trigger compare when gridItem clicked
+                        gridItemList[index].onclick = () => {
+                            animal["compare" + this.compareMethod](this.compareTarget);
+                        };
+                    });
                     // Remove form from screen
                     document.getElementById("dino-compare").classList.add("hide");
                     document.getElementById("grid").classList.remove("hide");
@@ -78,6 +86,7 @@ class dinoMuseum {
     }
     // Create Dino Objects
     loadDino = (() => {
+        //use IIFE to create private property and make sure only one ajax request is running even multitriggered.
         let nextQueue = [];
         let errorQueue = [];
         const triggerNext = () => {
@@ -89,7 +98,7 @@ class dinoMuseum {
             nextQueue = [];
         };
         const triggerError = (status, exc) => {
-            console.log(`load dino.json failed(${status}${exc ? ":" + JSON.stringify(exc) : ""}).`);
+            console.log(`load dino.json failed(${status}${exc ? ":" + (typeof exc === "object" ? JSON.stringify(exc) : exc) : ""}).`);
             for (const error of errorQueue) {
                 if (error && typeof (error) === "function")
                     error({
@@ -103,9 +112,9 @@ class dinoMuseum {
         return (next, error) => {
             nextQueue.push(next);
             errorQueue.push(error);
-            if (this.animalList) {
+            if (this.animalList) {//already downloaded.
                 triggerNext();
-            } else {
+            } else {//downloading or haven't start
                 if (!loading) {
                     loading = true;
                     try {
