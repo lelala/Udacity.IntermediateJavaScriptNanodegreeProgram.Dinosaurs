@@ -24,6 +24,7 @@ class Animal {
 
     // Draw into grid item.
     fillGridItem = (domElement) => {
+        domElement.classList.add(this.species.toLowerCase().replace(" ", "_"));
         [...domElement.getElementsByClassName("grid-title")].forEach(ele => { ele.innerText = this.species });
         [...domElement.getElementsByClassName("grid-image")].forEach(ele => { ele.setAttribute("src", this.image) });
         [...domElement.getElementsByClassName("grid-fact")].forEach(ele => { ele.innerText = this.fact });

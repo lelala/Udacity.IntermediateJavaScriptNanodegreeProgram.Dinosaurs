@@ -107,6 +107,43 @@ p {
     background: #677bcbfa;
 }
 
+/* override background color by species */
+.grid-item.triceratops{
+    background: #009687f5;
+}
+
+.grid-item.tyrannosaurus_rex{
+    background: #dc7657f5;
+}
+
+.grid-item.anklyosaurus{
+    background: #4bb3c1fa;
+}
+
+.grid-item.brachiosaurus{
+    background: #fac069f9;
+}
+
+.grid-item.human{
+    background: #67a866f9;
+}
+
+.grid-item.stegosaurus{
+    background: #b94169fa;
+}
+
+.grid-item.elasmosaurus{
+    background: #7f62b3fa;
+}
+
+.grid-item.pteranodon{
+    background: #9fc376f9;
+}
+
+.grid-item.pigeon{
+    background: #677bcbfa;
+}
+
 @media (min-width: 550px) {
     #grid .grid-item {
         width: calc(100% / 3);
