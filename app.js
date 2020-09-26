@@ -186,8 +186,8 @@ class DinoMuseum {
     constructor() {
         this.animalList = null;
         this.compareTarget = null;
-        // this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
-        this.compareMethod = ["Weight", "Height", "Diet"][0];
+        this.compareFrom = null;
+        this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
         // preload dino.json
         this.loadDino();
         window.onload = () => {
@@ -218,8 +218,10 @@ class DinoMuseum {
 
                         //trigger compare when gridItem clicked
                         gridItem.onclick = () => {
-                            if (animal !== this.compareTarget)
-                                animal["compare" + this.compareMethod](this.compareTarget);
+                            if (animal !== this.compareTarget) {
+                                this.compareFrom = animal;
+                                this.compare();
+                            }
                         };
                     });
                     // Remove form from screen
@@ -247,7 +249,23 @@ class DinoMuseum {
                 //click dismiss
                 document.querySelector(".compare-modal .compare-modal-dissmiss").onclick = () => document.querySelector(".compare-modal").classList.add("hide");
             }
+            // switch compare method
+            {
+                [...document.querySelectorAll(".compare-modal input[name=CompareMathod]")].forEach((radioBtn) => {
+                    radioBtn.checked = this.compareMethod == radioBtn.value;
+                    radioBtn.oninput = () => {
+                        if (radioBtn.value != this.compareMethod) {
+                            this.compareMethod = radioBtn.value;
+                            this.compare();
+                        }
+                    };
+                });
+            }
         };
+    }
+    compare = () => {
+        if (!!this.compareFrom && !!this.compareTarget)
+            this.compareFrom["compare" + this.compareMethod](this.compareTarget);
     }
     // Create Dino Objects
     loadDino = (() => {
