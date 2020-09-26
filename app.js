@@ -61,20 +61,30 @@ class DinoMuseum {
         this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
         // preload dino.json
         this.loadDino();
-        // On button click, prepare and display infographic
         window.onload = () => {
-            document.getElementById("btn").onclick = () => {
+            // On button click, prepare and display infographic
+            document.querySelector("#btn").onclick = () => {
                 this.loadDino(() => {
                     //create human object;
-                    this.compareTarget = this.createHuman();
+                    {
+                        const species = document.querySelector("#name").value || "Human";
+                        const height = document.querySelector("#inches").value || 155;
+                        const weight = document.querySelector("#weight").value || 65;
+                        const diet = document.querySelector("#diet").value || "Omnivor";
+                        this.compareTarget = this.createHuman({
+                            species,
+                            height,
+                            weight,
+                            diet
+                        });
+                    }
                     //put human into list;
                     this.animalList.splice(4, 0, this.compareTarget);
                     // Generate Tiles for each Dino in Array
                     this.animalList.forEach((animal, index) => {
                         // Add tiles to DOM
-                        // const gridItem = document.getElementById("tmpGridItem").content.cloneNode(true);
-                        const gridItem = document.importNode(document.getElementById("tmpGridItem").content, true).firstElementChild;
-                        document.getElementById("grid").appendChild(gridItem);
+                        const gridItem = document.importNode(document.querySelector("#tmpGridItem").content, true).firstElementChild;
+                        document.querySelector("#grid").appendChild(gridItem);
                         animal.fillGridItem(gridItem);
 
                         //trigger compare when gridItem clicked
@@ -83,11 +93,20 @@ class DinoMuseum {
                         };
                     });
                     // Remove form from screen
-                    document.getElementById("dino-compare").classList.add("hide");
-                    document.getElementById("grid").classList.remove("hide");
+                    document.querySelector("#dino-compare").classList.add("hide");
+                    document.querySelector("#grid").classList.remove("hide");
 
                 });
             };
+            // sync feet and inches
+            {
+                document.querySelector("#inches").oninput = () => {
+                    document.querySelector("#feet").value = Math.round((+document.querySelector("#inches").value) / 12);
+                }
+                document.querySelector("#feet").oninput = () => {
+                    document.querySelector("#inches").value = Math.round((+document.querySelector("#feet").value) * 12);
+                }
+            }
         };
     }
     // Create Dino Objects
@@ -96,7 +115,7 @@ class DinoMuseum {
         let nextQueue = [];
         let errorQueue = [];
         const triggerNext = () => {
-            console.log(`load dino.json success.`);
+            // console.log(`load dino.json success.`);
             for (const next of nextQueue) {
                 if (next && typeof (next) === "function")
                     next();
@@ -104,7 +123,7 @@ class DinoMuseum {
             nextQueue = [];
         };
         const triggerError = (status, exc) => {
-            console.log(`load dino.json failed(${status}${exc ? ":" + (typeof exc === "object" ? JSON.stringify(exc) : exc) : ""}).`);
+            // console.log(`load dino.json failed(${status}${exc ? ":" + (typeof exc === "object" ? JSON.stringify(exc) : exc) : ""}).`);
             for (const error of errorQueue) {
                 if (error && typeof (error) === "function")
                     error({
@@ -126,7 +145,7 @@ class DinoMuseum {
                     try {
                         let xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = () => {
-                            console.log(`xhttp.readyState = ${xhttp.readyState} && xhttp.status = ${xhttp.status}`);
+                            // console.log(`xhttp.readyState = ${xhttp.readyState} && xhttp.status = ${xhttp.status}`);
                             if (xhttp.readyState == 4 && xhttp.status == 200) {
                                 try {
                                     // parse responseText to objects
