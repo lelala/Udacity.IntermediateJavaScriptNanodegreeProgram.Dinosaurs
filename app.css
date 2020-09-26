@@ -306,49 +306,56 @@ select {
     height: 500px;
     width: 800px;
 }
-.compare-view-height .compare-from{
-    position: absolute;
-    height: 480px;
-    width: 640px;
-    left: -70px;
-    bottom: 0px;
-    text-align: center;
-}
-.compare-view-height .compare-to{
-    position: absolute;
-    height: 480px;
-    width: 640px;
-    right: -70px;
-    bottom: 0px;
-    text-align: center;
-}
-.compare-view-height .compare-from img{
-    position: absolute;
-    z-index: 1;
-    height: 480px;
-    width: 640px; 
-    bottom: 0px;
-    left: 0px;
-}
-.compare-view-height .compare-to img{
-    position: absolute;
-    z-index: 1;
-    height: 480px;
-    width: 640px;
-    bottom: 0px;
-    left: 0px;
-}
-.compare-view-height .compare-from p{
-    position: absolute;
-    z-index: 1;
-    width: 100%; 
-    bottom: 0px;
-    text-align: center;
-}
-.compare-view-height .compare-to p{
-    position: absolute;
-    z-index: 1;
-    width: 100%; 
-    bottom: 0px;
-    text-align: center;
+    .compare-view-height .compare-from{
+        position: absolute;
+        height: 480px;
+        width: 640px;
+        left: -70px;
+        bottom: 0px;
+        text-align: center;
+    }
+    .compare-view-height .compare-to{
+        position: absolute;
+        height: 480px;
+        width: 640px;
+        right: -70px;
+        bottom: 0px;
+        text-align: center;
+    }
+    .compare-view-height .compare-from img{
+        position: absolute;
+        z-index: 1;
+        height: 480px;
+        width: 640px; 
+        bottom: 0px;
+        left: 0px;
+    }
+    .compare-view-height .compare-to img{
+        position: absolute;
+        z-index: 1;
+        height: 480px;
+        width: 640px;
+        bottom: 0px;
+        left: 0px;
+    }
+    .compare-view-height .compare-from p{
+        position: absolute;
+        z-index: 1;
+        width: 100%; 
+        bottom: 0px;
+        text-align: center;
+    }
+    .compare-view-height .compare-to p{
+        position: absolute;
+        z-index: 1;
+        width: 100%; 
+        bottom: 0px;
+        text-align: center;
+    }
+.compare-view-diet{
+    height: 400px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

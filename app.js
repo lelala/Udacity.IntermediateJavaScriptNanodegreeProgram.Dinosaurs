@@ -37,6 +37,15 @@ class Animal {
         [...domElement.getElementsByClassName("grid-image")].forEach(ele => { ele.setAttribute("src", this.image) });
     }
 
+    showCompareDialog(name) {
+        // show modal in compare height mode
+        {
+            [...document.querySelectorAll("*[class^=compare-view]")].forEach(ele => { ele.classList.add("hide") });
+            [...document.querySelectorAll(`.compare-view-${name}`)].forEach(ele => { ele.classList.remove("hide") });
+            document.querySelector(".compare-modal").classList.remove("hide");
+        }
+    }
+
     // Create Dino Compare Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches. 
     compareWeight = (target) => {
@@ -77,16 +86,25 @@ class Animal {
         }
         // show modal in compare height mode
         {
-            [...document.querySelectorAll("*[class^=compare-view]")].forEach(ele => { ele.classList.add("hide") });
-            [...document.querySelectorAll(".compare-view-height")].forEach(ele => { ele.classList.remove("hide") });
-            document.querySelector(".compare-modal").classList.remove("hide");
+            this.showCompareDialog("height");
         }
     }
 
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
     compareDiet = (target) => {
-        alert(`compareDiet ${this.species} vs ${target.species}`);
+        // put data into dialog
+        {
+            if (target.diet.toLowerCase() == this.diet.toLowerCase())
+                document.querySelector(".compare-view-diet p").innerHTML = `${this.species} and ${target.species} are ${this.diet.toLowerCase()}`;
+            else {
+                document.querySelector(".compare-view-diet p").innerHTML = `${this.species} are ${this.diet.toLowerCase()}, and ${target.species} are ${target.diet.toLowerCase()}`;
+            }
+        }
+        // show modal in compare height mode
+        {
+            this.showCompareDialog("diet");
+        }
     }
 }
 
@@ -95,7 +113,7 @@ class DinoMuseum {
         this.animalList = null;
         this.compareTarget = null;
         // this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
-        this.compareMethod = ["Weight", "Height", "Diet"][1];
+        this.compareMethod = ["Weight", "Height", "Diet"][2];
         // preload dino.json
         this.loadDino();
         window.onload = () => {
