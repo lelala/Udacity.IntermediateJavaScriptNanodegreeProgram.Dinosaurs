@@ -322,36 +322,36 @@ select {
         bottom: 0px;
         text-align: center;
     }
-    .compare-view-height .compare-from img{
-        position: absolute;
-        z-index: 1;
-        height: 480px;
-        width: 640px; 
-        bottom: 0px;
-        left: 0px;
-    }
-    .compare-view-height .compare-to img{
-        position: absolute;
-        z-index: 1;
-        height: 480px;
-        width: 640px;
-        bottom: 0px;
-        left: 0px;
-    }
-    .compare-view-height .compare-from p{
-        position: absolute;
-        z-index: 1;
-        width: 100%; 
-        bottom: 0px;
-        text-align: center;
-    }
-    .compare-view-height .compare-to p{
-        position: absolute;
-        z-index: 1;
-        width: 100%; 
-        bottom: 0px;
-        text-align: center;
-    }
+        .compare-view-height .compare-from img{
+            position: absolute;
+            z-index: 1;
+            height: 480px;
+            width: 640px; 
+            bottom: 0px;
+            left: 0px;
+        }
+        .compare-view-height .compare-to img{
+            position: absolute;
+            z-index: 1;
+            height: 480px;
+            width: 640px;
+            bottom: 0px;
+            left: 0px;
+        }
+        .compare-view-height .compare-from p{
+            position: absolute;
+            z-index: 1;
+            width: 100%; 
+            bottom: 0px;
+            text-align: center;
+        }
+        .compare-view-height .compare-to p{
+            position: absolute;
+            z-index: 1;
+            width: 100%; 
+            bottom: 0px;
+            text-align: center;
+        }
 .compare-view-diet{
     height: 400px;
     width: 500px;
@@ -359,3 +359,47 @@ select {
     justify-content: center;
     align-items: center;
 }
+
+
+
+.compare-view-weight{
+    height: 460px;
+    width: 745px;
+}
+    .compare-view-weight .img-scale{
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+    }
+        .compare-view-weight .compare-from{
+            position: absolute;
+            height: 320px;
+            width: 320px;
+            left: 20px;
+            bottom: 100px;
+            text-align: center;
+        }
+        .compare-view-weight .compare-to{
+            position: absolute;
+            height: 320px;
+            width: 320px;
+            left: 405px;
+            bottom: 100px;
+            text-align: center;
+        }
+            .compare-view-weight .compare-from p{
+                position: absolute;
+                z-index: 1;
+                height: 320px; 
+                width: 320px;
+                bottom: 0px;
+                text-align: center;
+            }
+            .compare-view-weight .compare-to p{
+                position: absolute;
+                z-index: 1;
+                height: 320px; 
+                width: 320px;
+                bottom: 0px;
+                text-align: center;
+            }

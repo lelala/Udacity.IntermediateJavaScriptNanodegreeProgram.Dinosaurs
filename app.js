@@ -49,7 +49,81 @@ class Animal {
     // Create Dino Compare Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches. 
     compareWeight = (target) => {
-        alert(`compareWeight ${this.species} vs ${target.species}`);
+        let multiple = 1;
+        // if target is heavier then revirse compare.
+        if (Math.round(target.weight / this.weight) > 1) {
+            target.compareWeight(this);
+            return;
+        }
+        else {
+            multiple = Math.round(this.weight / target.weight)
+        }
+        // put data into dialog
+        {
+            if (multiple == 1) {
+                document.querySelector(".compare-view-weight>p").innerHTML = `${this.species} and ${target.species} are almost same weight `;
+            }
+            else {
+                document.querySelector(".compare-view-weight>p").innerHTML = `${this.species} are ${multiple} times heavier than ${target.species}`;
+            }
+            document.querySelector(".compare-view-weight .compare-from p").innerText = `${this.species} is ${this.weight} lbs.`;
+            document.querySelector(".compare-view-weight .compare-to p").innerText = `${target.species} is ${target.weight} lbs.`;
+        }
+        // clear images
+        {
+            [...document.querySelectorAll(".compare-view-weight>.compare-from>img,.compare-view-weight>.compare-to>img")].forEach((img) => img.remove());
+        }
+        // add image into scale
+        {
+            // from
+            {
+                const img = document.createElement("img");
+                img.src = this.image;
+                img.style.position = "absolute";
+                img.style.height = "240px";
+                img.style.width = "320px";
+                img.style.bottom = "0px";
+                img.style.left = "0px";
+                document.querySelector(".compare-view-weight .compare-from").appendChild(img);
+            }
+            //to
+            {
+                // calc base number
+                let baseLineCount = 1;
+                {
+                    let maxCount = 1;
+                    while (maxCount < multiple) {
+                        baseLineCount++;
+                        maxCount = (baseLineCount + 1) * baseLineCount / 2;
+                    }
+                    // console.log(baseLineCount);
+                }
+                // draw items
+                {
+                    const itemHeight = 320 / baseLineCount;
+                    const itemWidth = 320 / baseLineCount;
+                    let count = 0;
+                    const shiftBottom = baseLineCount > 5 ? 20 : 0;
+                    for (let line = 1, lineWidth = baseLineCount; line <= baseLineCount && count < multiple; line++, lineWidth--) {
+                        const shift = (320 - itemWidth * lineWidth) / 2;
+                        for (let i = 0; i < lineWidth && count < multiple; i++, count++) {
+                            const img = document.createElement("img");
+                            img.src = target.image;
+                            img.style.position = "absolute";
+                            img.style.height = itemHeight + "px";
+                            img.style.width = itemWidth + "px";
+                            img.style.bottom = (shiftBottom + itemHeight * (line - 1) * 0.90) + "px";
+                            img.style.left = (shift + i * itemWidth) + "px";
+                            document.querySelector(".compare-view-weight .compare-to").appendChild(img);
+                        }
+                    }
+                }
+            }
+        }
+        // show modal in compare height mode
+        {
+            this.showCompareDialog("weight");
+        }
     }
 
     // Create Dino Compare Method 2
@@ -67,10 +141,10 @@ class Animal {
         // put data into dialog
         {
             if (zoom == 1) {
-                document.querySelector(".compare-view-height p").innerHTML = `${this.species} are almost same height to ${target.species}`;
+                document.querySelector(".compare-view-height>p").innerHTML = `${this.species} are almost same height to ${target.species}`;
             }
             else {
-                document.querySelector(".compare-view-height p").innerHTML = `${this.species} are ${zoom / 10} times taller than ${target.species}`;
+                document.querySelector(".compare-view-height>p").innerHTML = `${this.species} are ${zoom / 10} times taller than ${target.species}`;
             }
             document.querySelector(".compare-view-height .compare-from p").innerText = `${this.species} is ${this.height} inches height.`;
             document.querySelector(".compare-view-height .compare-to p").innerText = `${target.species} is ${target.height} inches height.`;
@@ -113,7 +187,7 @@ class DinoMuseum {
         this.animalList = null;
         this.compareTarget = null;
         // this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
-        this.compareMethod = ["Weight", "Height", "Diet"][2];
+        this.compareMethod = ["Weight", "Height", "Diet"][0];
         // preload dino.json
         this.loadDino();
         window.onload = () => {
