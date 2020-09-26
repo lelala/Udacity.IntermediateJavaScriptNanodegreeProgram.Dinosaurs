@@ -9,7 +9,8 @@ class Animal {
             where = "",
             when = "",
             fact = "",
-            image = ""
+            image = "",
+            imageScale = 1
         } = {}
     ) {
         this.species = species;
@@ -20,6 +21,7 @@ class Animal {
         this.when = when;
         this.fact = fact;
         this.image = image || `images/${lower(species)}`;
+        this.imageScale = imageScale;
     }
 
     // Draw into grid item.
@@ -44,7 +46,36 @@ class Animal {
     // Create Dino Compare Method 2
     // NOTE: Weight in JSON file is in lbs, height in inches.
     compareHeight = (target) => {
-        alert(`compareHeight ${this.species} vs ${target.species}`);
+        let seed = 1;
+        // if target is taller then revirse compare.
+        if (Math.round(target.height * 10 / this.height) > 10) {
+            target.compareHeight(this);
+            return;
+        }
+        else {
+            seed = Math.round(this.height * 10 / target.height)
+        }
+        if (seed == 1) {
+            document.querySelector(".compare-view-height p").innerHTML = `${this.species} are almost same height to ${target.species}`;
+        }
+        else {
+            document.querySelector(".compare-view-height p").innerHTML = `${this.species} are ${seed / 10} times taller than ${target.species}`;
+        }
+
+        document.querySelector(".compare-view-height .compare-from img").setAttribute("src", this.image);
+        document.querySelector(".compare-view-height .compare-to img").setAttribute("src", target.image);
+        document.querySelector(".compare-view-height .compare-to img").style.height = (480 * 10 * target.imageScale / seed) + "px";
+        document.querySelector(".compare-view-height .compare-to img").style["margin-bottom"] = ((480 - 480 * 10 * target.imageScale / seed) / 2) + "px";
+        document.querySelector(".compare-view-height .compare-to img").style["margin-left"] = ((640 - 640 * 10 * target.imageScale / seed) / 2) + "px";
+        document.querySelector(".compare-view-height .compare-to img").style.width = (640 * 10 * target.imageScale / seed) + "px";
+
+        document.querySelector(".compare-view-height .compare-from p").innerText = `${this.species} is ${this.height} inches height.`;
+        document.querySelector(".compare-view-height .compare-to p").innerText = `${target.species} is ${target.height} inches height.`;
+
+
+        [...document.querySelectorAll("*[class^=compare-view]")].forEach(ele => { ele.classList.add("hide") });
+        [...document.querySelectorAll(".compare-view-height")].forEach(ele => { ele.classList.remove("hide") });
+        document.querySelector(".compare-modal").classList.remove("hide");
     }
 
     // Create Dino Compare Method 3
@@ -58,7 +89,8 @@ class DinoMuseum {
     constructor() {
         this.animalList = null;
         this.compareTarget = null;
-        this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
+        // this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
+        this.compareMethod = ["Weight", "Height", "Diet"][1];
         // preload dino.json
         this.loadDino();
         window.onload = () => {
@@ -89,7 +121,8 @@ class DinoMuseum {
 
                         //trigger compare when gridItem clicked
                         gridItem.onclick = () => {
-                            animal["compare" + this.compareMethod](this.compareTarget);
+                            if (animal !== this.compareTarget)
+                                animal["compare" + this.compareMethod](this.compareTarget);
                         };
                     });
                     // Remove form from screen
@@ -106,6 +139,16 @@ class DinoMuseum {
                 document.querySelector("#feet").oninput = () => {
                     document.querySelector("#inches").value = Math.round((+document.querySelector("#feet").value) * 12);
                 }
+            }
+            // dismiss compare-modal
+            {
+                //click outside
+                document.querySelector(".compare-modal").onclick = (e) => {
+                    if (e.target === document.querySelector(".compare-modal"))
+                        document.querySelector(".compare-modal").classList.add("hide");
+                };
+                //click dismiss
+                document.querySelector(".compare-modal .compare-modal-dissmiss").onclick = () => document.querySelector(".compare-modal").classList.add("hide");
             }
         };
     }
@@ -158,6 +201,7 @@ class DinoMuseum {
                                         //pick one dinosaur randomly
                                         let item = rsp.splice(Math.floor(Math.random() * rsp.length), 1)[0];
                                         item.image = `images/${(item.species || "").toLowerCase()}.png`;
+                                        item.imageScale = item.scale;
                                         this.animalList.push(new Animal(item));
                                     }
                                     // console.log(JSON.stringify(this.animalList));

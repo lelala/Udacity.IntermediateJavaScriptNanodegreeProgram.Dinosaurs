@@ -265,3 +265,90 @@ select {
     display: block;
     font-size: 0.7em;
 }
+
+/* compare-modal */
+.compare-modal{
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.compare-modal-content{
+    position: relative;
+    padding: 4px;
+    background-color: #fff;
+    border-radius: 12px;
+    border-width: 3px;
+    border-color: #ccc;
+    border-style: solid;
+    z-index: 101;
+    
+    /* min-height: 200px;
+    min-width: 200px; */
+}
+.compare-modal-dissmiss{
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    right: 4px;
+    color:#666;
+    padding: 4px;
+}
+.compare-view-height{
+    height: 500px;
+    width: 800px;
+}
+.compare-view-height .compare-from{
+    position: absolute;
+    height: 480px;
+    width: 640px;
+    left: -70px;
+    bottom: 0px;
+    text-align: center;
+}
+.compare-view-height .compare-to{
+    position: absolute;
+    height: 480px;
+    width: 640px;
+    right: -70px;
+    bottom: 0px;
+    text-align: center;
+}
+.compare-view-height .compare-from img{
+    position: absolute;
+    z-index: 1;
+    height: 480px;
+    width: 640px; 
+    bottom: 0px;
+    left: 0px;
+}
+.compare-view-height .compare-to img{
+    position: absolute;
+    z-index: 1;
+    height: 480px;
+    width: 640px;
+    bottom: 0px;
+    left: 0px;
+}
+.compare-view-height .compare-from p{
+    position: absolute;
+    z-index: 1;
+    width: 100%; 
+    bottom: 0px;
+    text-align: center;
+}
+.compare-view-height .compare-to p{
+    position: absolute;
+    z-index: 1;
+    width: 100%; 
+    bottom: 0px;
+    text-align: center;
+}
