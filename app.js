@@ -187,9 +187,6 @@ class DinoMuseum {
         this.animalList = null;
         this.compareTarget = null;
         this.compareFrom = null;
-        // const randomOption = ["Weight", "Height", "Diet"];
-        // const randomIndex = Math.floor(Math.random() * randomOption.length);
-        // const randomValue = randomOption[randomIndex];
         this.compareMethod = ["Weight", "Height", "Diet"][Math.floor(Math.random() * 3)];
         // preload dino.json
         this.loadDino();
